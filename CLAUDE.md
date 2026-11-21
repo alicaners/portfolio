@@ -12,7 +12,7 @@
 - Tailwind CSS
 - Framer Motion: şu an kullanılmıyor, animasyonlar CSS ile (`prefers-reduced-motion` destekli)
 - İçerik: `content/` altında tipli TS/MDX dosyaları (projeler, deneyimler, beceriler)
-- Deploy: Vercel
+- Deploy: Netlify (https://alicanersezer.netlify.app)
 - Paket yöneticisi: npm
 
 Komutlar:

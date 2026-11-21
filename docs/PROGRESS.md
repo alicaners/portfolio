@@ -45,6 +45,8 @@
 - RotaPlan kartındaki pasif ok kaldırıldı (henüz reposu yok).
 - BTK sertifika görsellerinin alt metni her sertifikanın adını içeriyor.
 
+- Siber Vatan ve YÖK DYP kartları Ali'nin verdiği bilgilerle güncellendi; haber sitelerinden gelen ifadeler çıkarıldı. IEEE "24. sıra" Ali tarafından doğrulandı.
+
 ## Açık konular (Ali)
 
-- Siber Vatan ve YÖK DYP kartlarındaki tarih ve durum bilgileri resmî sayfalarla karşılaştırılacak.
+- BTK sertifika listesi CV ile karşılaştırılacak (CV'de "Web Servislerine Giriş" ve "Techcareer: Veri Bilimine Giriş" var, sitede "Java ile Programlamaya Giriş" var).

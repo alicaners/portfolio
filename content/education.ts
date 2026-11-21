@@ -23,13 +23,13 @@ export const education: Education = {
     {
       name: "Türkiye Siber Vatan Programı",
       status: "Devam ediyor",
-      meta: "2027 dönemi · Yapay Zekâ Destekli Siber Güvenlik",
-      body: "Başvurum kabul edildi; yaklaşık üç ay süren çevrim içi eğitim dönemindeyim. Bu aşamada en başarılı olanlar yüz yüze eğitime ve 7 günlük BootCamp'e davet ediliyor.",
+      meta: "Türkiye Siber Vatan Programı 2027 · Doğu Marmara Kalkınma Ajansı (Sakarya)",
+      body: "Başvurum Kasım 2026'da kabul edildi; şu an yaklaşık üç ay süren çevrim içi eğitim dönemindeyim. Bu dönemin sonunda yapılan elemeyi geçenler yüz yüze sızma testi ve güvenlikte yapay zekâ eğitimlerine katılıyor.",
     },
     {
       name: "YÖK Dijital Üniversite Platformu",
-      status: "3. aşama",
-      meta: "DYP 2026–2027 · Mart 2027'de başlıyor",
+      status: "Devam ediyor",
+      meta: "DYP 2026–2027 · Kasım 2026'da başladı",
       modules: [
         { name: "Yapay Zekâ: Kolaylaştırıcı Araçlar", sessions: 10 },
         { name: "Modern Yazılım Geliştirme", sessions: 11 },

@@ -33,6 +33,14 @@ test("teknoloji şeridi spec §6.5", () => {
 test("deneyim etiketleri", () => {
   assert.deepEqual(experience.map(e => [e.tag, e.highlight]), [["Topluluk",false],["Topluluk",false],["Takım kaptanı",true],["24. sıra",true]]);
 });
+test("Siber Vatan ve YÖK kartları Ali'nin onayladığı bilgilerle", () => {
+  assert.deepEqual(education.programs.map(p => [p.name, p.status, p.meta]), [
+    ["Türkiye Siber Vatan Programı", "Devam ediyor", "Türkiye Siber Vatan Programı 2027 · Doğu Marmara Kalkınma Ajansı (Sakarya)"],
+    ["YÖK Dijital Üniversite Platformu", "Devam ediyor", "DYP 2026–2027 · Kasım 2026'da başladı"],
+  ]);
+  const all = JSON.stringify(education);
+  for (const bad of ["BootCamp", "Yapay Zekâ Destekli Siber Güvenlik", "3. aşama", "Mart 2027"]) assert.ok(!all.includes(bad), bad);
+});
 test("BTK listesi ekran görüntüsündeki 4 sertifika", () => {
   assert.deepEqual(education.btk, ["İleri Seviye Java","Java ile Programlamaya Giriş","C# Programlama","Algoritma Programlama ve Veri Yapılarına Giriş"]);
 });
