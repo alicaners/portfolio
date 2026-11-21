@@ -39,3 +39,12 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# brainstorm önizlemeleri ve Playwright ekran görüntüleri
+.superpowers/
+.playwright-mcp/
+
+# lighthouse
+.lighthouse.json
+.lighthouse*.json
+lighthouse-report*

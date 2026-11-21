@@ -10,7 +10,7 @@
 ## 2. Teknoloji yığını
 - Next.js (App Router) + TypeScript (strict)
 - Tailwind CSS
-- Framer Motion (animasyonlar, `prefers-reduced-motion` desteğiyle)
+- Framer Motion: şu an kullanılmıyor, animasyonlar CSS ile (`prefers-reduced-motion` destekli)
 - İçerik: `content/` altında tipli TS/MDX dosyaları (projeler, deneyimler, beceriler)
 - Deploy: Vercel
 - Paket yöneticisi: npm
@@ -21,18 +21,16 @@ Komutlar:
 - `npm run lint` → lint kontrolü
 
 ## 3. Site bölümleri
-1. **Hero:** isim, kısa tanıtım cümlesi, CTA (CV indir / iletişim)
+1. **Hero:** isim, kısa tanıtım cümlesi, CTA (Projeleri incele / CV indir)
 2. **Hakkımda**
-3. **Öne çıkanlar:** backend mimarisi, katmanlı yapı, API geliştirme vb.
-4. **Beceriler:** Backend / Frontend & Mobil / Araçlar / Diller
-5. **Deneyim & topluluk:** Yazılım Mühendisliği Kulübü (Etkinlik departmanı, yönetim kurulu), Bilgisayar Topluluğu (Kurumsal İlişkiler), NASA Space Apps Challenge 2026 (takım LUNA 9)
-6. **Eğitim & sertifikalar**
-7. **Projeler:** kart görünümü ve her proje için `/projects/[slug]` detay sayfası
+3. **Projeler:** kart listesi, proje okları GitHub reposuna gider
+   - Dijital Bankacılık Platformu
    - Yalın Üretim Asistanı (Flutter + ASP.NET Core)
-   - Bankacılık projesi
-   - Watchdog: POSIX sinyal tabanlı süreç denetleyici (C, Linux)
-   - RotaPlan: saha ekibi rota optimizasyonu (planlanıyor)
-8. **Footer / iletişim:** e-posta, GitHub, LinkedIn
+   - RotaPlan: saha ekibi rota optimizasyonu (geliştiriliyor)
+4. **Teknolojiler:** iki satırlık kayan şerit, altında 'Öğreniyorum' satırı
+5. **Deneyim:** Yazılım Mühendisliği Topluluğu (Etkinlik departmanı, yönetim kurulu), Bilgisayar Topluluğu (Kurumsal İlişkiler), NASA Space Apps Challenge 2026 (takım LUNA 9), IEEE OneAquaHealth (24. sıra)
+6. **Eğitim & sertifikalar**
+7. **İletişim / Footer:** e-posta, GitHub, LinkedIn
 
 > Proje açıklamalarındaki teknik detayları uydurma. Bilmediğin bir şey varsa `TODO(Ali):` yorumu bırak ve sor.
 

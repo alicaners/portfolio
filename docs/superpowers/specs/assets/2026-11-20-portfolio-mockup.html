@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="dark" data-accent="emerald">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ali Caner Sezer · Önizleme v4</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300..800&family=Geist+Mono:wght@400..600&display=swap" rel="stylesheet">
+<style>
+:root{ --f:"Geist",system-ui,sans-serif; --mono:"Geist Mono",ui-monospace,monospace; --r:14px; --ease:cubic-bezier(.2,.7,.2,1); }
+[data-theme=dark]{ --bg:#08090B; --bg2:#0F1115; --card:#111318; --line:rgba(255,255,255,.07); --line2:rgba(255,255,255,.13); --text:#EDEFF3; --muted:#9097A3; --dim:#636A75; }
+[data-theme=light]{ --bg:#FAFAFA; --bg2:#F1F2F4; --card:#FFFFFF; --line:rgba(10,12,16,.08); --line2:rgba(10,12,16,.15); --text:#0B0D10; --muted:#5A616C; --dim:#7D848E; }
+[data-accent=emerald][data-theme=dark]{ --acc:#34D399; --acc2:#10B981; --acc-ink:#04140D; }
+[data-accent=emerald][data-theme=light]{ --acc:#047857; --acc2:#10B981; --acc-ink:#fff; }
+[data-accent=orange][data-theme=dark]{ --acc:#FF8A3D; --acc2:#F97316; --acc-ink:#1A0A00; }
+[data-accent=orange][data-theme=light]{ --acc:#C2410C; --acc2:#F97316; --acc-ink:#fff; }
+[data-accent=blue][data-theme=dark]{ --acc:#60A5FA; --acc2:#3B82F6; --acc-ink:#04101F; }
+[data-accent=blue][data-theme=light]{ --acc:#1D4ED8; --acc2:#3B82F6; --acc-ink:#fff; }
+
+*{box-sizing:border-box} html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font:15px/1.6 var(--f);-webkit-font-smoothing:antialiased;transition:background-color .3s,color .3s;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:2px solid var(--acc);outline-offset:3px;border-radius:6px}
+.wrap{max-width:1040px;margin:0 auto;padding:0 20px}
+svg.i{width:16px;height:16px;display:block}
+
+/* önizleme ayarı (sitenin parçası değil) */
+.ctrl{position:fixed;right:14px;bottom:14px;z-index:50;display:flex;gap:6px;align-items:center;background:var(--card);border:1px solid var(--line2);border-radius:12px;padding:6px 8px;box-shadow:0 10px 30px rgba(0,0,0,.25);font:12px var(--f);color:var(--muted)}
+.sw{width:18px;height:18px;border-radius:50%;border:2px solid transparent;cursor:pointer;padding:0} .sw.on{border-color:var(--text)}
+
+/* ---------- ÜST MENÜ ---------- */
+.nav{position:fixed;inset:0 0 auto;z-index:30;transition:background-color .3s,border-color .3s,backdrop-filter .3s;border-bottom:1px solid transparent}
+.nav.scrolled{background:color-mix(in srgb,var(--bg) 78%,transparent);backdrop-filter:saturate(1.5) blur(14px);-webkit-backdrop-filter:saturate(1.5) blur(14px);border-bottom-color:var(--line)}
+.nav .wrap{display:flex;align-items:center;gap:20px;height:64px;transition:height .3s var(--ease)}
+.nav.scrolled .wrap{height:56px}
+.brand{display:flex;align-items:center;gap:10px;margin-right:auto}
+.mark{width:32px;height:32px;border-radius:9px;display:grid;place-items:center;background:var(--card);border:1px solid var(--line2);color:var(--text);transition:border-color .25s}
+.mark svg{width:18px;height:18px;overflow:visible} .mark path{transition:transform .35s var(--ease)} .mark .l1{stroke:var(--acc)}
+.brand:hover .mark{border-color:var(--acc)} .brand:hover .mark .l1{transform:translateY(-2px)} .brand:hover .mark .l3{transform:translateY(2px)}
+.brand b{display:block;font-weight:600;font-size:14px;letter-spacing:-.01em;line-height:1.15}
+.brand small{display:block;font:11px var(--mono);color:var(--dim);line-height:1.2}
+.links{display:flex;gap:4px;list-style:none;margin:0;padding:0}
+.links a{position:relative;display:block;padding:6px 12px;font-size:13.5px;color:var(--muted);transition:color .2s}
+.links a::after{content:"";position:absolute;left:12px;right:12px;bottom:0;height:1.5px;background:var(--acc);transform:scaleX(0);transform-origin:left;transition:transform .3s var(--ease)}
+.links a:hover{color:var(--text)} .links a:hover::after,.links a.active::after{transform:scaleX(1)} .links a.active{color:var(--text)}
+.tools{display:flex;align-items:center;gap:6px;padding-left:14px;border-left:1px solid var(--line)}
+.ib{width:34px;height:34px;border-radius:9px;display:grid;place-items:center;color:var(--muted);border:1px solid transparent;background:transparent;cursor:pointer;transition:color .2s,border-color .2s,background-color .2s}
+.ib:hover{color:var(--text);border-color:var(--line2);background:var(--bg2)}
+[data-theme=dark] .sun{display:block} [data-theme=dark] .moon{display:none} [data-theme=light] .sun{display:none} [data-theme=light] .moon{display:block}
+.ncta{display:inline-flex;align-items:center;gap:6px;height:34px;padding:0 14px;margin-left:4px;border-radius:9px;background:var(--text);color:var(--bg);font-size:13.5px;font-weight:550;transition:opacity .2s,transform .2s var(--ease)}
+.ncta:hover{opacity:.9;transform:translateY(-1px)}
+.burger{display:none}
+.sheet{position:fixed;top:56px;left:0;right:0;z-index:29;background:var(--bg);border-bottom:1px solid var(--line);padding:8px 20px 16px;display:grid;opacity:0;transform:translateY(-6px);pointer-events:none;transition:opacity .2s,transform .25s var(--ease)}
+.sheet.open{opacity:1;transform:none;pointer-events:auto}
+.sheet a{padding:12px 4px;border-bottom:1px solid var(--line);font-size:15px}
+@media(max-width:820px){.links,.tools .gh,.tools .li,.ncta{display:none}.burger{display:grid}.tools{border-left:0;padding-left:0}}
+
+/* ---------- HERO ---------- */
+.hero{position:relative;padding:136px 0 64px;overflow:hidden}
+.glow{position:absolute;left:50%;top:-180px;width:900px;height:520px;transform:translateX(-50%);background:radial-gradient(closest-side,color-mix(in srgb,var(--acc2) 38%,transparent),transparent);filter:blur(40px);opacity:.45;pointer-events:none;animation:breathe 10s ease-in-out infinite alternate}
+[data-theme=light] .glow{opacity:.18}
+@keyframes breathe{to{transform:translateX(-46%) scale(1.08)}}
+.grid{position:absolute;inset:0;background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:56px 56px;-webkit-mask-image:radial-gradient(ellipse 55% 60% at 50% 0%,#000 25%,transparent 75%);mask-image:radial-gradient(ellipse 55% 60% at 50% 0%,#000 25%,transparent 75%);pointer-events:none}
+.hero .wrap{position:relative}
+.avail{display:inline-flex;align-items:center;gap:8px;font:12px var(--mono);color:var(--muted);border:1px solid var(--line2);border-radius:999px;padding:5px 12px 5px 9px;background:color-mix(in srgb,var(--card) 60%,transparent)}
+.avail i{width:7px;height:7px;border-radius:50%;background:var(--acc);animation:ping 2.2s infinite}
+@keyframes ping{0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--acc) 55%,transparent)}100%{box-shadow:0 0 0 8px transparent}}
+h1{font-size:clamp(36px,5.4vw,58px);line-height:1.04;letter-spacing:-.04em;font-weight:620;margin:20px 0 16px}
+h1 span{display:block;color:var(--muted);font-weight:500}
+.up{opacity:0;transform:translateY(12px);animation:up .6s var(--ease) forwards}
+@keyframes up{to{opacity:1;transform:none}}
+.sub{font-size:16.5px;color:var(--muted);max-width:56ch;margin:0 0 26px}
+.sub b{color:var(--text);font-weight:550}
+.cta{display:flex;gap:10px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:8px;height:42px;padding:0 18px;border-radius:10px;font-weight:550;font-size:14px;transition:transform .2s var(--ease),box-shadow .25s,border-color .2s}
+.btn.pri{background:var(--text);color:var(--bg)}
+.btn.pri:hover{transform:translateY(-1px);box-shadow:0 8px 24px -10px color-mix(in srgb,var(--acc) 70%,transparent)}
+.btn.sec{border:1px solid var(--line2)} .btn.sec:hover{border-color:var(--text)}
+.btn .ar{transition:transform .2s var(--ease)} .btn:hover .ar{transform:translateX(3px)}
+.facts{display:flex;gap:28px;flex-wrap:wrap;margin-top:44px;padding-top:22px;border-top:1px solid var(--line)}
+.facts div{font-size:13px;color:var(--muted)} .facts b{display:block;color:var(--text);font-size:20px;font-weight:600;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+
+/* ---------- ORTAK BÖLÜM ---------- */
+section{padding:72px 0;scroll-margin-top:56px}
+.sh{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:24px;flex-wrap:wrap}
+.eb{font:500 12px var(--mono);color:var(--acc);margin-bottom:8px}
+h2 .num{font:500 13px var(--mono);color:var(--acc);margin-right:12px;vertical-align:.45em;letter-spacing:0}
+h2{font-size:clamp(24px,3vw,30px);letter-spacing:-.03em;line-height:1.15;margin:0;font-weight:600}
+.shr{font-size:14px;color:var(--muted)}
+.reveal{opacity:0;transform:translateY(16px);transition:opacity .6s var(--ease),transform .6s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+.card{position:relative;background:var(--card);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;transition:border-color .25s,transform .25s var(--ease)}
+.card::before{content:"";position:absolute;inset:0;background:radial-gradient(320px circle at var(--mx,50%) var(--my,50%),color-mix(in srgb,var(--acc) 10%,transparent),transparent 60%);opacity:0;transition:opacity .3s;pointer-events:none}
+.card:hover{border-color:var(--line2)} .card:hover::before{opacity:1}
+.card>*{position:relative}
+.tag{font:500 11px var(--mono);padding:3px 9px;border-radius:999px;border:1px solid var(--line2);color:var(--muted);white-space:nowrap}
+.tag.done{color:var(--acc);border-color:color-mix(in srgb,var(--acc) 40%,transparent);background:color-mix(in srgb,var(--acc) 8%,transparent)}
+.tag.wip::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:#F5B544;margin-right:6px;vertical-align:1px}
+.go{width:34px;height:34px;flex:none;border-radius:50%;border:1px solid var(--line2);display:grid;place-items:center;color:var(--muted);transition:all .25s var(--ease);font-size:14px}
+a.go:hover,a.card:hover .go{background:var(--acc);border-color:var(--acc);color:var(--acc-ink)}
+
+/* projeler */
+.proj:hover a.go{border-color:var(--acc);color:var(--acc)}
+.proj a.go:hover{background:var(--acc);border-color:var(--acc);color:var(--acc-ink)}
+.proj .go.off{opacity:.35;cursor:default}
+.proj a.go:focus-visible{outline-offset:2px}
+.projects{display:grid;gap:12px}
+.proj{display:flex;align-items:center;gap:20px;padding:20px 22px}
+.proj:hover{transform:translateY(-2px)}
+.proj .n{font:12px var(--mono);color:var(--dim);align-self:flex-start;padding-top:3px}
+.proj .b{flex:1;min-width:0}
+.proj h3{font-size:18px;letter-spacing:-.02em;margin:0 0 4px;font-weight:600;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.proj p{margin:0;color:var(--muted);font-size:14.5px;max-width:72ch}
+.proj .st{font:12px var(--mono);color:var(--dim);margin-top:8px}
+@media(max-width:640px){.proj{padding:18px}.proj .n,.proj .go{display:none}}
+
+/* hakkımda */
+.about{display:grid;grid-template-columns:220px 1fr;gap:40px}
+@media(max-width:820px){.about{grid-template-columns:1fr;gap:14px}}
+.about p{color:var(--muted);font-size:15.5px;line-height:1.75;margin:0 0 14px;max-width:68ch}
+.about p:first-child{color:var(--text)}
+
+/* beceriler: kayan şerit */
+.marq{position:relative;overflow:hidden;padding:4px 0;-webkit-mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent);mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent)}
+.row{display:flex;gap:10px;width:max-content;animation:slide 45s linear infinite}
+.row.rev{animation-direction:reverse;animation-duration:55s;margin-top:10px}
+.marq:hover .row{animation-play-state:paused}
+@keyframes slide{to{transform:translateX(-50%)}}
+.chip{display:inline-flex;align-items:center;gap:8px;height:36px;padding:0 14px;border-radius:10px;border:1px solid var(--line);background:var(--card);font-size:13.5px;white-space:nowrap;transition:border-color .2s,color .2s}
+.chip:hover{border-color:var(--acc);color:var(--acc)}
+.chip em{font-style:normal;font:11px var(--mono);color:var(--dim)}
+.learning{margin-top:16px;font-size:13px;color:var(--muted)}
+.learning span{font:12px var(--mono);color:var(--dim);margin-right:6px}
+
+/* hakkımda kartı */
+.aboutc{display:grid;grid-template-columns:1.5fr 1fr;gap:0}
+.atext{padding:22px 24px} .atext p{margin:0 0 12px;color:var(--muted);font-size:15px;line-height:1.7} .atext p:first-child{color:var(--text)} .atext p:last-child{margin-bottom:0}
+.akv{margin:0;padding:10px 24px;border-left:1px solid var(--line);display:grid;align-content:center}
+.akv div{padding:10px 0} .akv div+div{border-top:1px solid var(--line)}
+.akv dt{font:12px var(--mono);color:var(--dim)} .akv dd{margin:2px 0 0;font-size:14px;font-weight:500}
+@media(max-width:760px){.aboutc{grid-template-columns:1fr}.akv{border-left:0;border-top:1px solid var(--line)}}
+/* deneyim kartları */
+.xp{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+@media(max-width:900px){.xp{grid-template-columns:1fr 1fr}} @media(max-width:520px){.xp{grid-template-columns:1fr}}
+.xc{padding:18px;display:flex;flex-direction:column}
+.xc:hover{transform:translateY(-2px)}
+.xt{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
+.xi{width:34px;height:34px;border-radius:9px;display:grid;place-items:center;background:color-mix(in srgb,var(--acc) 10%,transparent);color:var(--acc)}
+.xc h3{margin:0 0 4px;font-size:15px;font-weight:600;letter-spacing:-.01em;line-height:1.3}
+.xc .role{margin:0;color:var(--muted);font-size:13.5px}
+.xc .xd{margin:auto 0 0;padding-top:14px;font:11.5px var(--mono);color:var(--dim)}
+.xc.hi{border-color:color-mix(in srgb,var(--acc) 30%,transparent)}
+.uni{display:flex;align-items:center;gap:14px;padding:16px 20px;margin-bottom:12px}
+.uni div{flex:1} .uni h3{margin:0;font-size:15.5px;font-weight:600} .uni p{margin:0;font-size:13.5px;color:var(--muted)}
+.ud{font:12px var(--mono);color:var(--dim)}
+/* deneyim */
+.tl{border-top:1px solid var(--line)}
+.tr{display:grid;grid-template-columns:150px 1fr auto;gap:20px;padding:16px 6px;border-bottom:1px solid var(--line);align-items:baseline;transition:background-color .2s,padding-left .25s var(--ease)}
+.tr:hover{background:color-mix(in srgb,var(--card) 80%,transparent);padding-left:12px}
+.tr .w{font:12px var(--mono);color:var(--dim)}
+.tr h3{margin:0;font-size:15.5px;font-weight:600;letter-spacing:-.01em}
+.tr p{margin:2px 0 0;color:var(--muted);font-size:14px}
+@media(max-width:640px){.tr{grid-template-columns:1fr auto;gap:2px 12px}.tr .w{grid-column:1/-1}}
+
+/* eğitim */
+.og2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+@media(max-width:760px){.og2{grid-template-columns:1fr}}
+.og{padding:20px 22px}
+.og .top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:10px}
+.og h3{margin:0;font-size:16.5px;font-weight:600;letter-spacing:-.015em}
+.og .meta{font:12px var(--mono);color:var(--acc);margin:0 0 8px}
+.og p{margin:0;color:var(--muted);font-size:14px}
+.mods{list-style:none;margin:12px 0 0;padding:0;display:grid;gap:6px}
+.mods li{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;padding:8px 12px;border-radius:9px;background:var(--bg2);border:1px solid var(--line);font-size:13.5px}
+.mods b{font-weight:550} .mods span{font:12px var(--mono);color:var(--dim)}
+.feat{display:flex;align-items:center;gap:20px;padding:0;margin-bottom:28px}
+.feat:hover{transform:translateY(-2px)}
+.flogo{align-self:stretch;width:170px;flex:none;display:flex;align-items:center;justify-content:center;gap:10px;background:linear-gradient(135deg,#0A2FB8,#1877F2 55%,#5AA9FF);color:#fff;font-weight:650;font-size:15px}
+.flogo i{width:1px;height:28px;background:rgba(255,255,255,.5)} .flogo span:last-child{font-size:12px;line-height:1.15;max-width:7em}
+.fb{flex:1;padding:18px 0} .fb h3{margin:0 0 4px;font-size:16.5px;font-weight:600} .fb p{margin:0;color:var(--muted);font-size:14px;max-width:70ch}
+.feat .go{margin-right:20px}
+@media(max-width:640px){.feat{flex-direction:column;align-items:stretch;gap:0}.flogo{width:auto;height:84px}.fb{padding:16px 18px}.feat .go{display:none}}
+.ch{font:12px var(--mono);color:var(--muted);margin:0 0 10px}
+.certs{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:640px){.certs{grid-template-columns:1fr}}
+.cert{display:flex;align-items:center;gap:14px;padding:12px 14px}
+.btk{width:68px;height:36px;flex:none;border-radius:8px;background:#fff;display:grid;place-items:center}
+.btk img{height:19px;width:auto;display:block}
+.cert div{flex:1;min-width:0} .cert h3{margin:0;font-size:14.5px;font-weight:550} .cert p{margin:0;font-size:12.5px;color:var(--dim)}
+.cert .go{width:30px;height:30px;font-size:12px}
+
+/* iletişim */
+.contact{border-top:1px solid var(--line)}
+.cg{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
+@media(max-width:820px){.cg{grid-template-columns:1fr;gap:24px}}
+.cg .lead{color:var(--muted);margin:12px 0 22px;max-width:46ch}
+.cl{padding:6px}
+.cr{display:grid;grid-template-columns:80px 1fr auto;gap:14px;align-items:center;padding:13px 14px;border-radius:10px;transition:background-color .2s}
+.cr+.cr{border-top:1px solid var(--line)} .cr:hover{background:var(--bg2)}
+.cr .k{font:12px var(--mono);color:var(--dim)} .cr .v{font-weight:500;font-size:14.5px;overflow-wrap:anywhere} a.v:hover{color:var(--acc)}
+.copy{font:500 12px var(--f);border:1px solid var(--line2);background:transparent;color:var(--text);border-radius:7px;padding:5px 9px;cursor:pointer}
+.copy:hover{border-color:var(--acc)}
+footer{border-top:1px solid var(--line);padding:22px 0;color:var(--dim);font-size:12.5px}
+footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+  .up,.reveal{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+
+<div class="ctrl" aria-label="Önizleme: vurgu rengi">Vurgu
+  <button class="sw on" data-a="emerald" style="background:#34D399" aria-label="Yeşil"></button>
+  <button class="sw" data-a="orange" style="background:#FF8A3D" aria-label="Turuncu"></button>
+  <button class="sw" data-a="blue" style="background:#60A5FA" aria-label="Mavi"></button>
+</div>
+
+<!-- ÜST MENÜ -->
+<header class="nav" id="nav"><div class="wrap">
+  <a class="brand" href="#"><span class="mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"><path class="l1" d="M12 3 21 8l-9 5-9-5 9-5Z"/><path class="l2" d="m3 12 9 5 9-5"/><path class="l3" d="m3 16 9 5 9-5"/></svg></span><span><b>Ali Caner Sezer</b><small>Junior Software Engineer</small></span></a>
+  <ul class="links" id="links">
+    <li><a href="#hakkimda">Hakkımda</a></li><li><a href="#projeler">Projeler</a></li><li><a href="#beceriler">Beceriler</a></li><li><a href="#deneyim">Deneyim</a></li><li><a href="#egitim">Eğitim</a></li>
+  </ul>
+  <div class="tools">
+    <a class="ib gh" href="https://github.com/alicaners" target="_blank" rel="noopener" aria-label="GitHub"><svg class="i" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.53-1.33-1.28-1.69-1.28-1.69-1.05-.71.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.71 1.26 3.37.96.1-.75.4-1.26.73-1.55-2.56-.29-5.25-1.28-5.25-5.68 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.83 1.19 3.09 0 4.41-2.7 5.38-5.26 5.67.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5Z"/></svg></a>
+    <a class="ib li" href="https://www.linkedin.com/in/alicanersezer28/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg class="i" viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28ZM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13ZM7.12 20.45H3.56V9h3.56v11.45ZM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0Z"/></svg></a>
+    <button class="ib" id="theme" type="button" aria-label="Temayı değiştir">
+      <svg class="i sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      <svg class="i moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
+    </button>
+    <a class="ncta" href="#iletisim">İletişim</a>
+    <button class="ib burger" id="burger" type="button" aria-label="Menüyü aç" aria-expanded="false"><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+  </div>
+</div></header>
+<nav class="sheet" id="sheet" aria-label="Mobil menü"><a href="#hakkimda">Hakkımda</a><a href="#projeler">Projeler</a><a href="#beceriler">Beceriler</a><a href="#deneyim">Deneyim</a><a href="#egitim">Eğitim</a><a href="#iletisim">İletişim</a></nav>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="glow" aria-hidden="true"></div><div class="grid" aria-hidden="true"></div>
+  <div class="wrap">
+    <span class="avail up" style="animation-delay:.05s"><i></i>Staj fırsatlarına açığım</span>
+    <h1 class="up" style="animation-delay:.12s">Ali Caner Sezer<span>Junior Software Engineer</span></h1>
+    <p class="sub up" style="animation-delay:.22s">Sakarya Üniversitesi Yazılım Mühendisliği 3. sınıf öğrencisiyim. <b>Java / Spring Boot</b> ve <b>C# / .NET</b> ile mikroservis mimarisi, REST API ve katmanlı mimari üzerine projeler geliştiriyorum.</p>
+    <div class="cta up" style="animation-delay:.3s">
+      <a class="btn pri" href="#projeler">Projeleri incele <span class="ar">→</span></a>
+      <a class="btn sec" href="AliCanerSezer_CV.pdf" download="AliCanerSezer_CV.pdf">CV indir <span class="ar">↓</span></a>
+    </div>
+    <div class="facts up" style="animation-delay:.4s">
+      <div><b>3+</b>proje</div><div><b>5+</b>sertifika</div><div><b>Mikroservis · Mobil · Full stack</b>proje alanları</div>
+    </div>
+  </div>
+</section>
+
+<!-- HAKKIMDA -->
+<section id="hakkimda"><div class="wrap">
+  <div class="sh reveal"><div><h2><span class="num">01</span>Hakkımda</h2></div></div>
+  <div class="card aboutc reveal">
+    <div class="atext">
+      <p>Sakarya Üniversitesi'nde Yazılım Mühendisliği 3. sınıf öğrencisiyim. En çok sevdiğim şey, bir fikrin çalışan bir ürüne dönüştüğü süreç: ihtiyacı anlamak, sistemi parçalarına ayırmak ve her parçayı sağlam kurmak.</p>
+      <p>Güçlü olduğum taraf backend. Bir servis çöktüğünde sistemin nasıl ayakta kalacağı gibi sorularla uğraşmayı seviyorum; test yazmak ve bir hatanın kök nedenini bulmak benim için işin bir parçası.</p>
+    </div>
+    <dl class="akv">
+      <div><dt>Okul</dt><dd>Sakarya Üniversitesi · 3. sınıf</dd></div>
+      <div><dt>Odak</dt><dd>Backend · Java / Spring Boot · C# / .NET</dd></div>
+      <div><dt>Arıyorum</dt><dd>2027 yazı stajı</dd></div>
+    </dl>
+  </div>
+</div></section>
+
+<!-- PROJELER -->
+<section id="projeler" style="padding-top:24px"><div class="wrap">
+  <div class="sh reveal"><div><h2><span class="num">02</span>Projeler</h2></div><span class="shr">Biri tamamlandı, ikisi geliştiriliyor.</span></div>
+  <div class="projects">
+    <div class="card proj reveal"><span class="n">01</span><div class="b">
+      <h3>Dijital Bankacılık Platformu <span class="tag done">Tamamlandı</span></h3>
+      <p>Java 21 ve Spring Boot ile tek başıma geliştirdiğim 7 mikroservisli bankacılık backend'i. Kafka, Redis, circuit breaker ve idempotent para transferleri; 13 container tek komutla ayağa kalkıyor.</p>
+      <div class="st">Spring Boot · Kafka · Redis · Docker</div></div><a class="go" href="https://github.com/alicaners/digital-banking-platform" target="_blank" rel="noopener" aria-label="Dijital Bankacılık Platformu GitHub reposu">↗</a></div>
+    <div class="card proj reveal"><span class="n">02</span><div class="b">
+      <h3>Yalın Üretim Asistanı <span class="tag wip">Geliştiriliyor</span></h3>
+      <p>Kaizen, 5S ve Andon süreçlerini dijitalleştiren Android uygulaması. Flutter mobil uygulamadan ASP.NET Core backend'e kadar uçtan uca geliştiriyorum.</p>
+      <div class="st">Flutter · ASP.NET Core · PostgreSQL</div></div><a class="go" href="https://github.com/alicaners/lean-manufacturing-assistant" target="_blank" rel="noopener" aria-label="Yalın Üretim Asistanı GitHub reposu">↗</a></div>
+    <div class="card proj reveal"><span class="n">03</span><div class="b">
+      <h3>RotaPlan <span class="tag wip">Geliştiriliyor</span></h3>
+      <p>Ankara'daki saha ekipleri için rota optimizasyonu yapan full stack uygulama.</p>
+      <div class="st">Full stack</div></div><span class="go off" title="Repo yakında">↗</span></div>
+  </div>
+</div></section>
+
+<!-- BECERİLER -->
+<section id="beceriler" style="padding-top:24px"><div class="wrap">
+  <div class="sh reveal"><div><h2><span class="num">03</span>Teknolojiler</h2></div><span class="shr">Projelerimde kullandıklarım</span></div>
+  <div class="marq reveal" aria-label="Teknolojiler">
+    <div class="row" id="r1"></div>
+    <div class="row rev" id="r2"></div>
+  </div>
+  <div class="learning reveal"><span>Öğreniyorum →</span>React · TypeScript · Next.js</div>
+</div></section>
+
+<!-- DENEYİM -->
+<section id="deneyim" style="padding-top:24px"><div class="wrap">
+  <div class="sh reveal"><div><h2><span class="num">04</span>Deneyim</h2></div><span class="shr">Topluluklar ve hackathonlar</span></div>
+  <div class="xp">
+    <div class="card xc reveal">
+      <div class="xt"><span class="xi" aria-hidden="true"><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></span><span class="tag">Topluluk</span></div>
+      <h3>Yazılım Mühendisliği Kulübü</h3>
+      <p class="role">Yönetim kurulu · Etkinlik departmanı</p>
+      <p class="xd">Sakarya Üniversitesi · 2026 – Devam ediyor</p>
+    </div>
+    <div class="card xc reveal">
+      <div class="xt"><span class="xi" aria-hidden="true"><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg></span><span class="tag">Topluluk</span></div>
+      <h3>Bilgisayar Topluluğu</h3>
+      <p class="role">Kurumsal İlişkiler Sorumlusu</p>
+      <p class="xd">Sakarya Üniversitesi · 2025 – 2026</p>
+    </div>
+    <div class="card xc hi reveal">
+      <div class="xt"><span class="xi" aria-hidden="true"><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg></span><span class="tag done">Takım kaptanı</span></div>
+      <h3>NASA Space Apps Challenge</h3>
+      <p class="role">LUNA 9 takımı</p>
+      <p class="xd">Hackathon · 2026</p>
+    </div>
+    <div class="card xc hi reveal">
+      <div class="xt"><span class="xi" aria-hidden="true"><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6c.6.5 1.2 1 2.5 1C7 7 7 5 9.5 5c2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1M2 12c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1M2 18c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/></svg></span><span class="tag done">24. sıra</span></div>
+      <h3>IEEE OneAquaHealth Hackathon</h3>
+      <p class="role">IEEE</p>
+      <p class="xd">Hackathon · 2026</p>
+    </div>
+  </div>
+</div></section>
+
+<!-- EĞİTİM -->
+<section id="egitim" style="padding-top:24px"><div class="wrap">
+  <div class="sh reveal"><div><h2><span class="num">05</span>Eğitim & sertifikalar</h2></div></div>
+  <div class="card uni reveal">
+    <span class="xi" aria-hidden="true"><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10 12 5 2 10l10 5 10-5Z"/><path d="M6 12v5c3 2 9 2 12 0v-5"/></svg></span>
+    <div><h3>Sakarya Üniversitesi</h3><p>Yazılım Mühendisliği (Lisans) · 3. sınıf</p></div>
+    <span class="ud">2023 – 2028</span>
+  </div>
+  <div class="og2">
+    <div class="card og reveal">
+      <div class="top"><h3>Türkiye Siber Vatan Programı</h3><span class="tag wip">Devam ediyor</span></div>
+      <p class="meta">2027 dönemi · Yapay Zekâ Destekli Siber Güvenlik</p>
+      <p>Başvurum kabul edildi; yaklaşık üç ay süren çevrim içi eğitim dönemindeyim. Bu aşamada en başarılı olanlar yüz yüze eğitime ve 7 günlük BootCamp'e davet ediliyor.</p>
+    </div>
+    <div class="card og reveal">
+      <div class="top"><h3>YÖK Dijital Üniversite Platformu</h3><span class="tag wip">3. aşama</span></div>
+      <p class="meta">DYP 2026–2027 · Mart 2027'de başlıyor</p>
+      <ul class="mods">
+        <li><b>Yapay Zekâ: Kolaylaştırıcı Araçlar</b><span>10 oturum</span></li>
+        <li><b>Modern Yazılım Geliştirme</b><span>11 oturum</span></li>
+      </ul>
+    </div>
+  </div>
+  <div class="card feat reveal">
+    <div class="flogo" aria-hidden="true"><span>Meta</span><i></i><span>YTÜ Startup House</span></div>
+    <div class="fb"><h3>AI 101 Training Series</h3><p>Üretken yapay zekâ ve Meta'nın yapay zekâ araçlarıyla fikirden prototipe, dört modüllük program · AI Builders Türkiye · 27 Ekim – 6 Kasım 2026</p></div>
+  </div>
+  <p class="ch reveal">BTK Akademi · Başarı sertifikaları</p>
+  <div class="certs">
+    <div class="card cert reveal"><span class="btk"><img src="btk-logo.png" alt="BTK Akademi"></span><div><h3>İleri Seviye Java</h3></div></div>
+    <div class="card cert reveal"><span class="btk"><img src="btk-logo.png" alt="BTK Akademi"></span><div><h3>Java ile Programlamaya Giriş</h3></div></div>
+    <div class="card cert reveal"><span class="btk"><img src="btk-logo.png" alt="BTK Akademi"></span><div><h3>C# Programlama</h3></div></div>
+    <div class="card cert reveal"><span class="btk"><img src="btk-logo.png" alt="BTK Akademi"></span><div><h3>Algoritma Programlama ve Veri Yapılarına Giriş</h3></div></div>
+  </div>
+</div></section>
+
+<!-- İLETİŞİM -->
+<section class="contact" id="iletisim"><div class="wrap cg">
+  <div class="reveal"><h2><span class="num">06</span>Staj ve iş birliği için iletişime geçin.</h2>
+    <p class="lead">Staj fırsatları, projeler veya iş birliği teklifleri için e-posta ile ulaşabilirsiniz.</p>
+    <a class="btn pri" href="AliCanerSezer_CV.pdf" download="AliCanerSezer_CV.pdf">CV'yi indir <span class="ar">↓</span></a></div>
+  <div class="card cl reveal">
+    <div class="cr"><span class="k">E-posta</span><a class="v" href="mailto:alicanerszrr@gmail.com">alicanerszrr@gmail.com</a><button type="button" class="copy" onclick="navigator.clipboard?.writeText('alicanerszrr@gmail.com');this.textContent='Kopyalandı ✓';setTimeout(()=>this.textContent='Kopyala',1600)">Kopyala</button></div>
+    <div class="cr"><span class="k">LinkedIn</span><a class="v" href="https://www.linkedin.com/in/alicanersezer28/" target="_blank" rel="noopener">linkedin.com/in/alicanersezer28</a><span style="color:var(--dim)">↗</span></div>
+    <div class="cr"><span class="k">GitHub</span><a class="v" href="https://github.com/alicaners" target="_blank" rel="noopener">github.com/alicaners</a><span style="color:var(--dim)">↗</span></div>
+  </div>
+</div></section>
+
+<footer><div class="wrap"><span>© 2026 Ali Caner Sezer</span><span>Next.js ile yapıldı</span></div></footer>
+
+<script>
+// Teknoloji şeridi: iki satır, ters yönlerde (her satır iki kopya → kesintisiz döngü)
+const R1=[['Java','dil'],['Spring Boot',''],['Spring Cloud',''],['C#','dil'],['.NET',''],['ASP.NET Core',''],['Entity Framework',''],['Flutter','mobil']];
+const R2=[['PostgreSQL','veri'],['MSSQL','veri'],['Redis','cache'],['Kafka','mesaj'],['Docker',''],['GitHub Actions','CI'],['JUnit · Testcontainers','test'],['Git','']];
+const chips=a=>[...a,...a].map(([t])=>`<span class="chip">${t}</span>`).join('');
+r1.innerHTML=chips(R1); r2.innerHTML=chips(R2);
+// Kaydırınca belirme
+const io=new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } }),{threshold:.12});
+document.querySelectorAll('.reveal').forEach((el,i)=>{ el.style.transitionDelay=(i%3)*60+'ms'; io.observe(el); });
+// Kart ışığı
+document.querySelectorAll('.card').forEach(c=>c.addEventListener('pointermove',e=>{ const r=c.getBoundingClientRect(); c.style.setProperty('--mx',(e.clientX-r.left)+'px'); c.style.setProperty('--my',(e.clientY-r.top)+'px'); }));
+// Menü: kaydırınca daralma, aktif bölüm, mobil menü, tema
+const nav=document.getElementById('nav'), links=[...document.querySelectorAll('#links a')];
+const onScroll=()=>nav.classList.toggle('scrolled',scrollY>12); addEventListener('scroll',onScroll,{passive:true}); onScroll();
+const so=new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting) links.forEach(l=>l.classList.toggle('active',l.getAttribute('href')==='#'+e.target.id)); }),{rootMargin:'-45% 0px -50% 0px'});
+document.querySelectorAll('section[id]').forEach(s=>so.observe(s));
+const burger=document.getElementById('burger'), sheet=document.getElementById('sheet');
+burger.onclick=()=>{ const o=sheet.classList.toggle('open'); burger.setAttribute('aria-expanded',o); };
+sheet.querySelectorAll('a').forEach(a=>a.onclick=()=>{ sheet.classList.remove('open'); burger.setAttribute('aria-expanded',false); });
+const H=document.documentElement;
+document.getElementById('theme').onclick=()=>{ H.dataset.theme = H.dataset.theme==='dark'?'light':'dark'; };
+document.querySelectorAll('[data-a]').forEach(b=>b.onclick=()=>{ H.dataset.accent=b.dataset.a; document.querySelectorAll('[data-a]').forEach(x=>x.classList.toggle('on',x===b)); });
+</script>
+</body>
+</html>
