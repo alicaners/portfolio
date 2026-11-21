@@ -16,9 +16,14 @@ test("projeler spec §6.4 ile birebir", () => {
   ]);
 });
 test("unvan ve bilgi satırı", () => {
-  assert.equal(profile.title, "Junior Software Engineer");
-  assert.deepEqual(profile.facts.map(f => f.value), ["3+", "5+", "Mikroservis · Mobil · Full stack"]);
+  assert.equal(profile.title, "Backend Developer");
+  assert.deepEqual(profile.facts.map(f => f.value), ["3", "5", "Mikroservis · Mobil · Full stack"]);
   assert.equal(profile.cvPath, "/AliCanerSezer_CV.pdf");
+});
+test("metrikler sitede listelenenlerle birebir", () => {
+  // Sertifika: BTK kartları + öne çıkan Meta × YTÜ AI 101 kartı
+  assert.equal(profile.facts[0].value, String(projects.length));
+  assert.equal(profile.facts[1].value, String(education.btk.length + 1));
 });
 test("teknoloji şeridi spec §6.5", () => {
   assert.deepEqual(skills.rows[0], ["Java","Spring Boot","Spring Cloud","C#",".NET","ASP.NET Core","Entity Framework","Flutter","React"]);

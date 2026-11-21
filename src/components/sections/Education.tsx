@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { education } from "@content/education";
-import { ui, sessionsLabel } from "@content/ui";
+import { ui, sessionsLabel, btkAlt } from "@content/ui";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/ui/Reveal";
 import { Tag } from "@/components/ui/Tag";
@@ -72,7 +72,7 @@ export function Education() {
                   src="/images/btk-akademi.png"
                   width={780}
                   height={283}
-                  alt={ui.sections.education.btkAlt}
+                  alt={btkAlt(name)}
                   sizes="68px"
                 />
               </span>

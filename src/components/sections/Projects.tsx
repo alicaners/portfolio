@@ -1,5 +1,5 @@
 import { projects, projectsNote } from "@content/projects";
-import { ui, repoLabel, repoSoonLabel } from "@content/ui";
+import { ui, repoLabel } from "@content/ui";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/ui/Reveal";
 import { Tag } from "@/components/ui/Tag";
@@ -34,16 +34,7 @@ export function Projects() {
                 >
                   ↗
                 </a>
-              ) : (
-                <span
-                  className="proj-go is-off"
-                  title={ui.repoSoon}
-                  role="img"
-                  aria-label={repoSoonLabel(p.name)}
-                >
-                  ↗
-                </span>
-              )}
+              ) : null}
             </Reveal>
           ))}
         </div>

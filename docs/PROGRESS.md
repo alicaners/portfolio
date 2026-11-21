@@ -1,7 +1,7 @@
 # İlerleme durumu
 
 **Son güncelleme:** 2026-11-21
-**Durum:** Uygulama tamamlandı, son inceleme ve düzeltme turu bitti. `master`'a tek commit olarak (squash) alınmayı bekliyor.
+**Durum:** Yayında (Netlify). Yayın sonrası düzeltme turu yapıldı.
 **Tasarım dokümanı:** `docs/superpowers/specs/2026-11-20-portfolio-design.md` (onaylı)
 **Uygulama planı:** `docs/superpowers/plans/2026-11-20-portfolio-site.md`
 
@@ -32,8 +32,19 @@
 
 - **Şerit durdurma butonu:** Buton hem `aria-pressed` kullanıyor hem de etiketini değiştiriyor ("Şeridi durdur" / "Şeridi oynat"). Ekran okuyucular bunu belirsiz okuyabilir. Düzeltmesi iki satır: `aria-pressed` kaldırılır.
 
-## Yayın öncesi yapılacaklar (Ali)
+## Yayın
 
-- `master`'ı GitHub'a push et. `feat/portfolio-site` branch'ini **push etme**, eski geçmişi içeriyor.
-- Vercel'e bağla. Alan adı alırsan `NEXT_PUBLIC_SITE_URL` ortam değişkenini ayarla.
-- Siber Vatan ve YÖK DYP bilgilerini resmî sayfalarla karşılaştır.
+- **Canlı adres:** https://alicanersezer.netlify.app (Netlify). Vercel'in `.vercel.app` adresi Türkiye'den açılmadığı için Netlify'a geçildi.
+- Netlify'da `NEXT_PUBLIC_SITE_URL` ayarlı. Ayarlı değilse kod `https://alicanersezer.netlify.app` adresine düşer (`src/lib/site-url.ts`).
+
+## Yayın sonrası düzeltmeler (2026-11-21)
+
+- Varsayılan site adresi Netlify oldu, Vercel'e özgü `VERCEL_PROJECT_PRODUCTION_URL` kaldırıldı.
+- Hero unvanı "Backend Developer" (CV ile tutarlı), tanıtım cümlesine "fikri ürüne dönüştürme, backend'de güçlü" vurgusu eklendi.
+- Metrikler: "3 proje", "5 sertifika" (4 BTK + Meta × YTÜ AI 101). Bir test bu sayıları içerik listeleriyle eşleştiriyor.
+- RotaPlan kartındaki pasif ok kaldırıldı (henüz reposu yok).
+- BTK sertifika görsellerinin alt metni her sertifikanın adını içeriyor.
+
+## Açık konular (Ali)
+
+- Siber Vatan ve YÖK DYP kartlarındaki tarih ve durum bilgileri resmî sayfalarla karşılaştırılacak.

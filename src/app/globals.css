@@ -496,10 +496,6 @@ section[id] {
   border-color: var(--acc);
   color: var(--acc-ink);
 }
-.proj-go.is-off {
-  opacity: 0.35;
-  cursor: default;
-}
 .proj a.proj-go:focus-visible {
   outline-offset: 2px;
 }

@@ -17,14 +17,14 @@ export type Profile = {
 
 export const profile: Profile = {
   name: "Ali Caner Sezer",
-  title: "Junior Software Engineer",
+  title: "Backend Developer",
   status: "Staj fırsatlarına açığım",
   intro:
-    "Sakarya Üniversitesi Yazılım Mühendisliği 3. sınıf öğrencisiyim. Java / Spring Boot ve C# / .NET ile mikroservis mimarisi, REST API ve katmanlı mimari üzerine projeler geliştiriyorum.",
+    "Sakarya Üniversitesi Yazılım Mühendisliği 3. sınıf öğrencisiyim. Bir fikri çalışan bir ürüne dönüştürmeyi seviyorum; güçlü olduğum taraf backend. Java / Spring Boot ve C# / .NET ile mikroservis mimarisi, REST API ve katmanlı mimari üzerine projeler geliştiriyorum.",
   introEmphasis: ["Java / Spring Boot", "C# / .NET"],
   facts: [
-    { value: "3+", label: "proje" },
-    { value: "5+", label: "sertifika" },
+    { value: "3", label: "proje" },
+    { value: "5", label: "sertifika" },
     { value: "Mikroservis · Mobil · Full stack", label: "proje alanları" },
   ],
   email: "alicanerszrr@gmail.com",

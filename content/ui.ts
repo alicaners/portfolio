@@ -15,11 +15,10 @@ export type Ui = {
     projects: { num: string; title: string };
     skills: { num: string; title: string; learning: string; pause: string; play: string };
     experience: { num: string; title: string; aside: string };
-    education: { num: string; title: string; btkLabel: string; btkAlt: string };
+    education: { num: string; title: string; btkLabel: string };
     contact: { num: string; cv: string; email: string; linkedin: string; github: string };
   };
   status: { done: string; wip: string };
-  repoSoon: string;
   copy: { idle: string; ok: string; fail: string };
   footer: { built: string };
 };
@@ -57,7 +56,6 @@ export const ui: Ui = {
       num: "05",
       title: "Eğitim & sertifikalar",
       btkLabel: "BTK Akademi · Başarı sertifikaları",
-      btkAlt: "BTK Akademi",
     },
     contact: {
       num: "06",
@@ -68,12 +66,11 @@ export const ui: Ui = {
     },
   },
   status: { done: "Tamamlandı", wip: "Geliştiriliyor" },
-  repoSoon: "Repo yakında",
   copy: { idle: "Kopyala", ok: "Kopyalandı ✓", fail: "Kopyalanamadı" },
   footer: { built: "Next.js ile yapıldı" },
 };
 
 export const repoLabel = (name: string) => `${name} GitHub reposu`;
-export const repoSoonLabel = (name: string) => `${name}: repo yakında`;
+export const btkAlt = (name: string) => `BTK Akademi · ${name} sertifikası`;
 export const sessionsLabel = (n: number) => `${n} oturum`;
 export const pageTitle = (name: string, title: string) => `${name} · ${title}`;
